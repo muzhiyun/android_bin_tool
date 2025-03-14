@@ -1,0 +1,25 @@
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi-
+export PATH=$PATH:/data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/bin
+#export PKG_CONFIG_SYSROOT_DIR=$PKG_CONFIG_SYSROOT_DIR:/data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/
+export PKG_CONFIG_PATH=/data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/lib/pkgconfig/
+
+
+git clone https://gitlab.freedesktop.org/libevdev/libevdev
+# version [1.13.3]
+cd libevdev/
+./autogen.sh 
+./configure --host=arm-linux-gnueabi --prefix=/data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/ CC=arm-linux-gnueabi-gcc PKG_CONFIG_PATH=/data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/lib/pkgconfig/ 
+make
+make install
+
+cd ..
+git clone https://github.com/TianyouLi/evemu
+# version [2.1.0]
+cd evemu/
+chmod +x autogen.sh
+./configure --host=arm-linux-gnueabi target=arm-linux-gnueabi --prefix=/data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/ CC=arm-linux-gnueabi-gcc CFLAGS="--static" CXXFLAGS="--static" CPPFLAGS="--static" PKG_CONFIG_PATH=/data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/lib/pkgconfig/  LDFLAGS="-static -L/data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/lib -L/data/build/source_build/evemu/src/.libs/" EXEEXT=".bin"
+
+git apply patch_tset_Makefile.diff
+make
+make EXEEXT=.bin & make install EXEEXT=.bin

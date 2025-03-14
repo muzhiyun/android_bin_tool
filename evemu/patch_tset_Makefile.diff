@@ -1,0 +1,32 @@
+diff --git a/test/Makefile b/test/Makefile
+index 2b5130c..7fe1c20 100644
+--- a/test/Makefile
++++ b/test/Makefile
+@@ -420,7 +420,7 @@ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+ ACLOCAL = ${SHELL} /data/build/source_build/evemu/config-aux/missing aclocal-1.15
+ AMTAR = $${TAR-tar}
+ AM_CFLAGS = -Wall -Wextra
+-AM_DEFAULT_VERBOSITY = 0
++AM_DEFAULT_VERBOSITY = 1
+ AR = arm-linux-gnueabi-ar
+ ASCIIDOC = 
+ AUTOCONF = ${SHELL} /data/build/source_build/evemu/config-aux/missing autoconf
+@@ -612,15 +612,15 @@ clean-noinstPROGRAMS:
+ 
+ test-c-compile$(EXEEXT): $(test_c_compile_OBJECTS) $(test_c_compile_DEPENDENCIES) $(EXTRA_test_c_compile_DEPENDENCIES) 
+ 	@rm -f test-c-compile$(EXEEXT)
+-	$(AM_V_CCLD)$(LINK) $(test_c_compile_OBJECTS) $(test_c_compile_LDADD) $(LIBS)
++	$(AM_V_CCLD)$(LINK) $(test_c_compile_OBJECTS) /data/build/source_build/evemu/src/.libs/libevemu.a /data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/lib/libevdev.a $(LIBS)
+ 
+ test-cxx-compile$(EXEEXT): $(test_cxx_compile_OBJECTS) $(test_cxx_compile_DEPENDENCIES) $(EXTRA_test_cxx_compile_DEPENDENCIES) 
+ 	@rm -f test-cxx-compile$(EXEEXT)
+-	$(AM_V_CXXLD)$(CXXLINK) $(test_cxx_compile_OBJECTS) $(test_cxx_compile_LDADD) $(LIBS)
++	$(AM_V_CXXLD)$(CXXLINK) $(test_cxx_compile_OBJECTS) $(test_cxx_compile_LDADD) /data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/lib/libevdev.a $(LIBS)
+ 
+ test-evemu-create$(EXEEXT): $(test_evemu_create_OBJECTS) $(test_evemu_create_DEPENDENCIES) $(EXTRA_test_evemu_create_DEPENDENCIES) 
+ 	@rm -f test-evemu-create$(EXEEXT)
+-	$(AM_V_CCLD)$(test_evemu_create_LINK) $(test_evemu_create_OBJECTS) $(test_evemu_create_LDADD) $(LIBS)
++	$(AM_V_CCLD)$(test_evemu_create_LINK) $(test_evemu_create_OBJECTS) /data/build/source_build/evemu/src/.libs/libevemu.a /data/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/lib/libevdev.a  $(LIBS)
+ 
+ mostlyclean-compile:
+ 	-rm -f *.$(OBJEXT)
