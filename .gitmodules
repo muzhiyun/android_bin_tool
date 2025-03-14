@@ -1,3 +1,7 @@
-[submodule "polaco1782_linux-static-binaries"]
-	path = polaco1782_linux-static-binaries
+[submodule "polaco1782-linux-static-binaries"]
+	path = polaco1782-linux-static-binaries
 	url = https://github.com/polaco1782/linux-static-binaries
+
+[submodule "therealsaumil-static-arm-bins"]
+	path = therealsaumil-static-arm-bins
+	url = https://github.com/therealsaumil/static-arm-bins
